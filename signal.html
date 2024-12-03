@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" crossorigin="anonymous" />
+    <title>Share Flex Message</title>
+  </head>
+  <body>
+    <center>
+      <p>... กำลังโหลด ...</p>
+      <img src="https://image.makewebeasy.net/makeweb/0/pMrtkmxgt/APNG_images/loader1_1.gif?v=202012190947" alt="loading" width="126" height="129" />
+      <p>กรุณารอสักครู่</p>
+    </center>
+
+    <script>
+      window.onload = function() {
+        liff.init({ liffId: "2006590629-lLDKBrL3" })
+          .then(() => {
+            if (liff.isLoggedIn()) {
+              dolink();
+            } else {
+              liff.login();
+            }
+          })
+          .catch(err => console.error('LIFF Initialization failed ', err));
+      };
+
+
+      function getParameterByName(name, url = window.location.href) {
+        name = name.replace(/[\[\]]/g, '\\$&');
+        const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+        const results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
+      }
+
+      async function fetchDataFromGoogleSheet(id) {
+        const url = `https://script.google.com/macros/s/AKfycbwXn_xa0TYa2qrCzxfD7WeoNi50HrZ5RT55xdwI629_0spIvIHc2RQERYIOgwL33t9p/exec?id=${id}`;
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+      }
+
+      function dolink() {
+        const referId = getParameterByName("id");
+
+        fetchDataFromGoogleSheet(referId).then(data => {
+          if (data.error) {
+            Swal.fire('Error', 'ไม่พบข้อมูลที่ต้องการ', 'error');
+            return;
+          }
+
+          if (referId === getParameterByName("id")) {
+            liff.shareTargetPicker([
+              {
+                "type": "flex",
+                "altText": "นพค.21 สนภ.2 นทพ.",
+                "contents": 
+// -------ใส่ JSON ----------
+
+{
+  "type": "bubble",
+  "size": "giga",
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "image",
+        "url": "https://flex-mdu25.github.io/Pr21/bn1.jpg",
+        "size": "full",
+        "aspectRatio": "1040:150",
+        "align": "center",
+        "gravity": "center",
+        "aspectMode": "cover",
+        "offsetTop": "none",
+        "animated": true
+      }
+    ],
+    "paddingAll": "none"
+  },
+  "hero": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "image",
+                    "size": "full",
+                    "aspectRatio": "16:10",
+                    "url": data.imagetitle,
+                    "aspectMode": "cover",
+                    "action": {
+                      "type": "uri",
+                      "label": "action",
+                      "uri": data.imagetitle
+                    }
+                  }
+                ],
+                "width": "100%",
+                "cornerRadius": "xl"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "size": "sm",
+                    "weight": "bold",
+                    "align": "start",
+                    "wrap": true,
+                    "contents": [
+                      {
+                        "type": "span",
+                        "color": "#293377",
+                        "decoration": "underline",
+                        "size": "lg",
+                        "text": data.title
+                      }
+                    ],
+                    "margin": "lg",
+                    "offsetStart": "sm",
+                    "offsetEnd": "sm",
+                    "offsetBottom": "md"
+                  },
+                  {
+                    "type": "text",
+                    "text": data.description,
+                    "wrap": true,
+                    "size": "sm"
+                  }
+                ],
+                "paddingAll": "md",
+                "width": "100%"
+              },
+              {
+                "type": "box",
+                "layout": "horizontal",
+                "contents": [
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "size": "full",
+                        "aspectMode": "cover",
+                        "align": "center",
+                        "gravity": "center",
+                        "aspectRatio": "16:9",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": data.image1
+                        },
+                        "url": data.image1
+                      }
+                    ],
+                    "borderWidth": "none",
+                    "width": "33%",
+                    "cornerRadius": "sm",
+                    "offsetEnd": "xs"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "url": data.image2,
+                        "size": "full",
+                        "aspectMode": "cover",
+                        "aspectRatio": "16:9",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": data.image2
+                        }
+                      }
+                    ],
+                    "width": "33%",
+                    "offsetEnd": "none",
+                    "paddingEnd": "none",
+                    "cornerRadius": "sm",
+                    "offsetStart": "xs"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "image",
+                        "url": data.image3,
+                        "aspectMode": "cover",
+                        "size": "full",
+                        "aspectRatio": "16:9",
+                        "action": {
+                          "type": "uri",
+                          "label": "action",
+                          "uri": data.image3
+                        }
+                      }
+                    ],
+                    "width": "33%",
+                    "cornerRadius": "sm",
+                    "offsetStart": "5px"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "vertical",
+                    "contents": []
+                  }
+                ],
+                "borderWidth": "none",
+                "alignItems": "flex-start",
+                "paddingAll": "xs"
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "icon",
+                    "url": "https://flex-mdu25.github.io/Pr25/img/ic_facebook.png",
+                    "size": "4xl",
+                    "margin": "none",
+                    "offsetStart": "xxl",
+                    "offsetEnd": "none",
+                    "offsetBottom": "none",
+                    "offsetTop": "xs"
+                  }
+                ],
+                "borderWidth": "normal",
+                "width": "33%",
+                "action": {
+                  "type": "uri",
+                  "label": "FB",
+                  "uri": data.fblink
+                },
+                "justifyContent": "center"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "icon",
+                    "url": "https://flex-mdu25.github.io/Pr25/img/ic_tiktok.png",
+                    "size": "4xl",
+                    "offsetTop": "xs",
+                    "offsetEnd": "none"
+                  }
+                ],
+                "width": "33%",
+                "action": {
+                  "type": "uri",
+                  "label": "Tiktok",
+                  "uri": data.tklink
+                },
+                "justifyContent": "center"
+              },
+              {
+                "type": "box",
+                "layout": "baseline",
+                "contents": [
+                  {
+                    "type": "icon",
+                    "url": "https://flex-mdu25.github.io/Pr25/img/ic_website.png",
+                    "size": "4xl",
+                    "offsetTop": "xs",
+                    "offsetEnd": "xxl"
+                  }
+                ],
+                "width": "33%",
+                "action": {
+                  "type": "uri",
+                  "label": "Website",
+                  "uri": data.weblink
+                },
+                "justifyContent": "center"
+              }
+            ],
+            "paddingTop": "xs",
+            "paddingEnd": "xs",
+            "offsetTop": "xs"
+          }
+        ],
+        "backgroundColor": "#ffffff",
+        "borderWidth": "semi-bold",
+        "borderColor": "#005a91",
+        "cornerRadius": "xxl",
+        "offsetTop": "md",
+        "offsetBottom": "lg",
+        "paddingAll": "md"
+      }
+    ],
+    "paddingAll": "lg",
+    "paddingBottom": "lg",
+    "background": {
+      "type": "linearGradient",
+      "angle": "0deg",
+      "startColor": "#1c2f68",
+      "endColor": "#000a3f"
+    }
+  },
+  "body": {
+    "type": "box",
+    "layout": "horizontal",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "image",
+            "url": "https://flex-mdu25.github.io/Pr25/img/read.png",
+            "size": "full",
+            "aspectRatio": "10:4",
+            "action": {
+              "type": "uri",
+              "label": "อ่านเพิ่มเติม",
+              "uri": data.newsfblink
+            }
+          }
+        ]
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [],
+        "width": "5%"
+      },
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "image",
+            "url": "https://flex-mdu25.github.io/Pr25/img/share2.png",
+            "size": "full",
+            "aspectRatio": "10:4",
+            "action": {
+              "type": "uri",
+              "label": "คลิกเพื่อแชร์",
+              "uri": data.liffshare
+            }
+          }
+        ]
+      }
+    ],
+    "backgroundColor": "#1c2f68",
+    "offsetTop": "xs",
+    "paddingTop": "1px",
+    "paddingEnd": "lg",
+    "paddingBottom": "5px"
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "image",
+        "url": "https://flex-mdu25.github.io/Pr21/bt1.jpg",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "1040:74",
+        "align": "center"
+      }
+    ],
+    "paddingAll": "none"
+  },
+  "styles": {
+    "hero": {
+      "backgroundColor": "#d6ebf5"
+    },
+    "body": {
+      "backgroundColor": "#1c2f68"
+    },
+    "footer": {
+      "backgroundColor": "#ffffff"
+    }
+  }
+}
+
+                  
+
+
+
+// -------จบ JSON ----------
+
+              }
+            ])
+            .then(function() {
+              Swal.fire({
+                position: 'top-center',
+                icon: 'success',
+                title: 'ส่งข้อมูลเรียบร้อย',
+                showConfirmButton: false,
+                timer: 1500,
+                onClose: () => {
+                  liff.closeWindow();
+                }
+              });
+            })
+            .catch(function(error) {
+              console.error("Error in shareTargetPicker: ", error);
+            });
+          }
+        }).catch(error => {
+          console.error("Error fetching data: ", error);
+          Swal.fire('Error', 'เกิดข้อผิดพลาดในการดึงข้อมูล', 'error');
+        });
+      }
+
+
+    </script>
+
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>
